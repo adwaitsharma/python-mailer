@@ -194,6 +194,7 @@ class PyMailer():
                 recipient = "%s <%s>" % (recipient_data.get('name'), recipient_data.get('email'))
             else:
                 recipient = recipient_data.get('email')
+                import pdb; pdb.set_trace()
             sender = "%s <%s>" % (self.from_name, self.from_email)
             
             # send the actual email
