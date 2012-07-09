@@ -66,7 +66,8 @@ class PyMailer():
         """
         Validate the supplied email address.
         """
-        if not email_address or len(email_address) > 7:
+        return email_address
+        if not email_address or len(email_address) < 7:
             return None
         if re.match('^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$', email_address):
             return None
@@ -159,8 +160,8 @@ class PyMailer():
                 logging.error("Recipient email missing in line %s" % i)
             else:
                 recipient_data_list.append({
-                    'name': name,
-                    'email': email,
+                    'name': recipient_name,
+                    'email': recipient_email,
                 })
         
         # clear the contents of the resend csv file
@@ -194,13 +195,13 @@ class PyMailer():
                 recipient = "%s <%s>" % (recipient_data.get('name'), recipient_data.get('email'))
             else:
                 recipient = recipient_data.get('email')
-                import pdb; pdb.set_trace()
             sender = "%s <%s>" % (self.from_name, self.from_email)
             
+            recipient_list_with_bcc = [recipient, 'self-via-bcc@asheesh.org']
             # send the actual email
             smtp_server = smtplib.SMTP(host=SMTP_HOST, port=SMTP_PORT)
             try:
-                smtp_server.sendmail(sender, recipient, message)
+                smtp_server.sendmail(sender, recipient_list_with_bcc, message)
                 
                 # save the last recipient to the stats file incase the process fails
                 self._stats("LAST RECIPIENT: %s" % recipient)
@@ -258,7 +259,7 @@ def main(sys_args):
             
             # send the email and try resend to failed recipients
             pymailer.send()
-            self.resend_failed()
+            pymailer.resend_failed()
         else:
             print "Aborted."
             sys.exit()
