@@ -4,6 +4,8 @@ PyMailer
 
 Send bulk html emails from the commandline or in your python script by specifying a database of recipients in csv form, a html template with var placeholders and a subject line.
 
+NOTE: In this fork, OVERVIEW.rst contains some more detailed information on how to use it.
+
 
 Requirements
 ------------
