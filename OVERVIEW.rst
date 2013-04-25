@@ -161,3 +161,15 @@ Other things to know
 --------------------
 
 When sending emails, the thing waits 0.25 seconds between emails.
+
+Since the tool does not care much about your filenames, I recommend
+choosing *.txt and *.csv filenames corresponding to your current
+task. For example, if sending emails in mass to Wellesley College
+students, create wellesley.csv with the email addresses, and then
+create wellesley-confirm.txt and wellesley-exit-survey.txt for
+different email texts using the same set of email addresses.
+
+It seems to me that this tool would be even better if it created the
+text files for you as a starting point, had you edit the text files to
+customize further, and then could tell it to mass-send them. Do you
+think so, too? If so, tell me.
